@@ -3,32 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndelhomm <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jbrisset <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 12:26:20 by ndelhomm          #+#    #+#             */
-/*   Updated: 2018/11/18 12:48:39 by ndelhomm         ###   ########.fr       */
+/*   Created: 2018/11/11 13:59:04 by jbrisset          #+#    #+#             */
+/*   Updated: 2018/11/17 14:30:35 by jbrisset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+char	*ft_strmapi(char const *str, char (*f)(unsigned int, char))
 {
-	char	*fresh_s;
-	char	*str;
-	size_t	i;
+	int				i;
+	char			c;
+	char			*newstr;
+	unsigned int	index;
 
-	str = (char *)s;
+	if (!(str || f))
+		return (NULL);
+	if (!(newstr = ft_strnew(ft_strlen(str))))
+		return (0);
 	i = 0;
-	if (!str || !f)
-		return (0);
-	if (!(fresh_s = malloc((ft_strlen(str) + 1) * sizeof(char))))
-		return (0);
-	while (s[i])
+	while (str[i] != '\0')
 	{
-		fresh_s[i] = f(i, str[i]);
+		index = (unsigned int)i;
+		c = f(index, str[i]);
+		newstr[i] = c;
 		i++;
 	}
-	fresh_s[i] = '\0';
-	return (fresh_s);
+	return (newstr);
 }

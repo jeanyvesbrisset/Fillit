@@ -3,60 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndelhomm <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jbrisset <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 08:59:50 by ndelhomm          #+#    #+#             */
-/*   Updated: 2018/11/20 14:37:32 by ndelhomm         ###   ########.fr       */
+/*   Created: 2018/11/14 12:17:34 by jbrisset          #+#    #+#             */
+/*   Updated: 2019/02/22 15:18:05 by jbrisset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t		ft_intlen(int n)
+static int		get_length(int nb)
 {
-	size_t length;
+	int	i;
 
-	length = 0;
-	if (n == 0)
-		length = 1;
-	if (n < 0)
+	i = 0;
+	if (nb <= 0)
+		i++;
+	while (nb != 0)
 	{
-		n = -n;
-		length++;
+		nb /= 10;
+		i++;
 	}
-	while (n)
-	{
-		n = n / 10;
-		length++;
-	}
-	return (length);
+	return (i);
 }
 
-char				*ft_itoa(int n)
+static int		is_negative(int nb)
 {
-	char			*fresh_s;
-	int				length;
-	int				length_init;
-	int				sign;
-
-	length_init = ft_intlen(n);
-	length = ft_intlen(n);
-	sign = (n < 0) ? 1 : 0;
-	if (!(fresh_s = (char *)malloc((length + 1) * sizeof(char))))
+	if (nb < 0)
+		return (1);
+	else
 		return (0);
-	if (sign == 1)
-		fresh_s[0] = '-';
-	else if (n == 0)
-		fresh_s[0] = '0';
-	while (n)
+}
+
+char			*ft_itoa(int nb)
+{
+	char	*result;
+	int		len;
+	long	n;
+
+	n = nb;
+	len = get_length(nb);
+	result = ft_strnew(len);
+	if (result)
 	{
-		if (n > 0)
-			fresh_s[length - 1] = n % 10 + '0';
-		else
-			fresh_s[length - 1] = -(n % 10) + '0';
-		n = n / 10;
-		length--;
+		if (is_negative(nb))
+			n *= -1;
+		result[len + 1] = '\0';
+		while (len-- >= 0)
+		{
+			result[len] = (n % 10) + '0';
+			n /= 10;
+		}
+		if (is_negative(nb))
+			result[0] = '-';
 	}
-	fresh_s[length_init] = '\0';
-	return (fresh_s);
+	return (result);
 }

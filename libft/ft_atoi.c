@@ -3,39 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndelhomm <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jbrisset <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 12:51:07 by ndelhomm          #+#    #+#             */
-/*   Updated: 2018/11/18 11:57:12 by ndelhomm         ###   ########.fr       */
+/*   Created: 2018/11/08 16:41:45 by jbrisset          #+#    #+#             */
+/*   Updated: 2018/11/17 14:07:16 by jbrisset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	int i;
-	int n;
-	int sign;
+	int	i;
+	int	res;
+	int	sign;
+	int	start;
 
 	i = 0;
-	n = 0;
-	sign = 0;
-	while ((str[i] == ' ') || (str[i] == '\f') ||
-			(str[i] == '\t') || (str[i] == '\v') ||
-			(str[i] == '\n') || (str[i] == '\r'))
-		i++;
-	if (str[i] == '-')
-		sign = 1;
-	if ((str[i] == '-') || (str[i] == '+'))
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
+	res = 0;
+	sign = 1;
+	start = 0;
+	while (str[start] != '\0' && (str[start] == ' ' || str[start] == '\t' ||
+			str[start] == '\n' || str[start] == '\v' || str[start] == '\r' ||
+			str[start] == '\b' || str[start] == '\f'))
+		start++;
+	i = start;
+	while ((str[i] >= '0' && str[i] <= '9')
+		|| ((str[i] == '-' || str[i] == '+') && i == start))
 	{
-		n = n * 10 + str[i] - '0';
+		if (str[i] == '-')
+			sign = -1;
+		else if (str[i] >= '0' && str[i] <= '9')
+			res = (res * 10) + (str[i] - 48);
 		i++;
 	}
-	if (sign == 1)
-		return (-n);
-	else
-		return (n);
+	return ((res * sign));
 }

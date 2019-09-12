@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strnchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbrisset <jbrisset@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbrisset <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 20:12:11 by jbrisset          #+#    #+#             */
-/*   Updated: 2018/11/14 14:55:02 by jbrisset         ###   ########.fr       */
+/*   Created: 2019/02/21 09:55:09 by jbrisset          #+#    #+#             */
+/*   Updated: 2019/02/21 13:29:17 by jbrisset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strcmp(const char *s1, const char *s2)
+#include "libft.h"
+
+int		ft_strnchr(const char *s, int c)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	while (s1[i] != '\0' || s2[i] != '\0')
+	while (*s)
 	{
-		if ((unsigned char)s1[i] != (unsigned char)s2[i])
-		{
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		}
-		i++;
+		if (*s == c)
+			i++;
+		s++;
 	}
-	return (0);
+	return (i);
 }

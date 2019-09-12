@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_islower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbrisset <jbrisset@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbrisset <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 20:12:11 by jbrisset          #+#    #+#             */
-/*   Updated: 2018/11/14 14:55:02 by jbrisset         ###   ########.fr       */
+/*   Created: 2018/11/21 15:02:33 by jbrisset          #+#    #+#             */
+/*   Updated: 2018/11/21 15:16:22 by jbrisset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_islower(int c)
 {
-	int	i;
-
-	i = 0;
-	while (s1[i] != '\0' || s2[i] != '\0')
-	{
-		if ((unsigned char)s1[i] != (unsigned char)s2[i])
-		{
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		}
-		i++;
-	}
-	return (0);
+	if (c >= 'a' && c <= 'z')
+		return (1);
+	else
+		return (0);
 }

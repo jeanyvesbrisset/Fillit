@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_isxdigit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbrisset <jbrisset@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbrisset <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 20:12:11 by jbrisset          #+#    #+#             */
-/*   Updated: 2018/11/14 14:55:02 by jbrisset         ###   ########.fr       */
+/*   Created: 2018/11/21 16:02:49 by jbrisset          #+#    #+#             */
+/*   Updated: 2018/11/21 16:08:55 by jbrisset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
+#include "libft.h"
 
-	i = 0;
-	while (s1[i] != '\0' || s2[i] != '\0')
-	{
-		if ((unsigned char)s1[i] != (unsigned char)s2[i])
-		{
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		}
-		i++;
-	}
-	return (0);
+int	ft_isxdigit(int c)
+{
+	if (ft_isdigit(c) || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f'))
+		return (1);
+	else
+		return (0);
 }

@@ -3,38 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndelhomm <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jbrisset <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/11 15:26:54 by ndelhomm          #+#    #+#             */
-/*   Updated: 2018/11/20 13:34:12 by ndelhomm         ###   ########.fr       */
+/*   Created: 2018/11/11 17:45:54 by jbrisset          #+#    #+#             */
+/*   Updated: 2018/11/17 16:19:49 by jbrisset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s)
+static int		count_char(char const *str)
 {
-	char	*fresh_s;
-	char	*str;
-	size_t	i;
-	size_t	j;
-	size_t	k;
+	int	i;
+	int	j;
+	int	len;
 
-	if (!(fresh_s = (char *)malloc(sizeof(char))) || !s)
-		return (0);
-	str = (char *)s;
 	i = 0;
-	j = ft_strlen(s) - 1;
-	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t')
+	len = ft_strlen(str);
+	j = len - 1;
+	while ((str[i] == '\t' || str[i] == '\n' || str[i] == ' ') &&
+		str[i] != '\0')
 		i++;
-	if (str[i] == '\0')
-		return (ft_strdup(str + i));
-	while (str[j] == ' ' || str[j] == '\n' || str[j] == '\t')
+	if (i == len)
+		return (1);
+	while (j > 0 && (str[j] == '\t' || str[j] == ' ' || str[j] == '\n'))
+	{
+		i++;
 		j--;
-	k = j - i + 1;
-	if (!(fresh_s = (char *)malloc((k + 1) * sizeof(char))))
-		return (0);
-	ft_strncpy(fresh_s, str + i, k);
-	fresh_s[k] = '\0';
-	return (fresh_s);
+	}
+	return (len - i);
+}
+
+static int		get_start(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0' && (str[i] == '\t' || str[i] == '\n' ||
+							str[i] == ' '))
+		i++;
+	return (i);
+}
+
+char			*ft_strtrim(char const *str)
+{
+	int		i;
+	int		char_nb;
+	int		j;
+	char	*result;
+	char	*string;
+
+	if (!str)
+		return (NULL);
+	string = (char *)str;
+	i = get_start(string);
+	char_nb = count_char(str);
+	result = (char *)malloc(sizeof(char) * (char_nb + 1));
+	if (result)
+	{
+		j = 0;
+		while (j < char_nb)
+		{
+			result[j] = string[i];
+			i++;
+			j++;
+		}
+		result[j] = '\0';
+	}
+	return (result);
 }

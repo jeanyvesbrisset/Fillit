@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_uitoa_base.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbrisset <jbrisset@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 20:12:11 by jbrisset          #+#    #+#             */
-/*   Updated: 2018/11/14 14:55:02 by jbrisset         ###   ########.fr       */
+/*   Created: 2018/11/08 10:37:41 by jbrisset          #+#    #+#             */
+/*   Updated: 2019/03/22 11:04:03 by jbrisset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
+#include "libft.h"
 
-	i = 0;
-	while (s1[i] != '\0' || s2[i] != '\0')
+char	*ft_uitoa_base(unsigned long long int nb, int base)
+{
+	static char s[1024];
+	int			len;
+
+	ft_bzero(s, 1024);
+	len = ft_uintlen_base(nb, base);
+	while (len)
 	{
-		if ((unsigned char)s1[i] != (unsigned char)s2[i])
-		{
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		}
-		i++;
+		if (nb % base < 10 || base <= 10)
+			s[len - 1] = (nb % base) + '0';
+		else
+			s[len - 1] = (nb % base) + 'A' - 10;
+		nb /= base;
+		len--;
 	}
-	return (0);
+	return (s);
 }

@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_intlen_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbrisset <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/14 11:12:36 by jbrisset          #+#    #+#             */
-/*   Updated: 2018/11/14 11:17:09 by jbrisset         ###   ########.fr       */
+/*   Created: 2019/02/28 11:57:06 by jbrisset          #+#    #+#             */
+/*   Updated: 2019/02/28 11:58:26 by jbrisset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-void	ft_putendl_fd(char const *str, int fd)
+int	ft_intlen_base(long long int n, int base)
 {
-	int		i;
-	char	*s;
+	int	len;
 
-	i = 0;
-	s = (char *)str;
-	while (s[i] != '\0')
+	len = 0;
+	if (n < -9223372036854775807)
+		return (19);
+	if (n == 0)
+		return (1);
+	if (n < 0)
 	{
-		ft_putchar_fd(s[i], fd);
-		i++;
+		n = -n;
+		len++;
 	}
-	ft_putchar_fd('\n', fd);
+	while (n)
+	{
+		n = n / base;
+		len++;
+	}
+	return (len);
 }

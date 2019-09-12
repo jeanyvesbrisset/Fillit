@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   lstdelone.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndelhomm <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jbrisset <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 11:33:28 by ndelhomm          #+#    #+#             */
-/*   Updated: 2018/11/20 19:20:07 by ndelhomm         ###   ########.fr       */
+/*   Created: 2018/11/15 10:10:09 by jbrisset          #+#    #+#             */
+/*   Updated: 2018/11/15 10:59:09 by jbrisset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
 {
-	if (alst && del)
-	{
-		del((**alst).content, (**alst).content_size);
-		free(*alst);
-	}
-	*alst = NULL;
+	if (*alst)
+		del((*alst)->content, (*alst)->content_size);
+	ft_memdel((void **)alst);
 }
